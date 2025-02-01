@@ -1,0 +1,30 @@
+version: "3"
+
+services:
+  servicedb:
+    image: postgres:16
+    container_name: servicedb
+    hostname: servicedb
+    ports:
+      - 127.0.0.1:5009:5437
+    environment:
+      - "POSTGRES_USER=testuser"
+      - "POSTGRES_PASSWORD=11111"
+      - "POSTGRES_DB=datasource_servicedb"
+    networks:
+      - db-network
+    restart: always
+
+  inventorydb:
+    image: postgres:16
+    container_name: inventorydb
+    hostname: inventorydb
+    ports:
+      - 127.0.0.1:5009:5438
+    environment:
+      - "POSTGRES_USER=testuser"
+      - "POSTGRES_PASSWORD=11111"
+      - "POSTGRES_DB=datasource_inventorydb"
+    networks:
+      - db-network
+    restart: always

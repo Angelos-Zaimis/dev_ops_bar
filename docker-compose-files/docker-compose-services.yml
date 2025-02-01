@@ -1,0 +1,27 @@
+version: "3"
+
+services:
+  middleware-service:
+    container_name: middleware-service
+    image: ghcr.io/Angelos-Zaimis/middleware-service:latest
+    networks:
+      - db-network
+    restart: unless-stopped
+    ports:
+      - 127.0.0.1:8881:8080
+    environment:
+      - "JAVA_OPTIONS=-XX:-OmitStackTraceInFastThrow -Dspring.profiles.active=local"
+      - "SPRING_KAFKA_BOOTSTRAPADDRESS=kafka:9092"
+      - "CORS_ALLOWEDORIGINS=http://localhost:*, http://127.0.0.1:*, http://192.168.0.*:*, http://192.168.1.*:*, http://192.168.3.*:*"
+      - "SPRINGDOC_SWAGGER_UI_OAUTH_CLIENT_ID=client"
+      - "SPRINGDOC_SWAGGER_UI_OAUTH_CLIENT_SECRET=123456"
+      - "SPRINGDOC_SWAGGER_UD_OAUTH_ENABLED=true"
+      - "SPRINGDOC_DATASOURCE_URL=jdbc:postgresql://servicedb:5437/datasource_servicedb"
+      - "SPRING_DATASOURCE_USERNAME=testuser"
+      - "SPRING_DATASOURCE_PASSWORD=11111"
+      - "SPRING_FLYWAY_LOCATIONS=classpath:db/migration/schema,classpath:db/migration/data/dev"
+      - "SERVICE_MIDDLEWAREINVENTORY_URL=http://localhost:8081/middleware-inventory"
+    depends_on:
+      - servicedb
+    volumes:
+      - ./log:/log
