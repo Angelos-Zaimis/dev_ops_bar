@@ -20,7 +20,7 @@ services:
     container_name: inventorydb
     hostname: inventorydb
     ports:
-      - 127.0.0.1:5009:5438
+      - 127.0.0.1:5010:5438
     environment:
       - "POSTGRES_USER=testuser"
       - "POSTGRES_PASSWORD=11111"
