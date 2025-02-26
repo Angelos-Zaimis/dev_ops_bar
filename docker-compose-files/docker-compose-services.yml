@@ -3,7 +3,7 @@ version: "3"
 services:
   middleware-service:
     container_name: middleware-service
-    image: midd-service
+    image: middleware-service
     networks:
       - db-network
     restart: unless-stopped
@@ -29,12 +29,12 @@ services:
 
   middleware-inventory:
     container_name: middleware-inventory
-    image: midd-inventory
+    image: middleware-inventory
     networks:
       - db-network
     restart: unless-stopped
     ports:
-      - 127.0.0.1:8882:8081
+      - 127.0.0.1:8882:8082
     environment:
       - "JAVA_OPTIONS=-XX:-OmitStackTraceInFastThrow -Dspring.profiles.active=local"
       - "SPRING_KAFKA_BOOTSTRAP_ADDRESS=kafka:9092"
